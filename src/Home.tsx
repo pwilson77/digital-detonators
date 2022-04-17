@@ -1,16 +1,16 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import confetti from "canvas-confetti";
 import * as anchor from "@project-serum/anchor";
-import {LAMPORTS_PER_SOL, PublicKey} from "@solana/web3.js";
-import {useAnchorWallet} from "@solana/wallet-adapter-react";
-import {WalletMultiButton} from "@solana/wallet-adapter-react-ui";
-import {GatewayProvider} from '@civic/solana-gateway-react';
+import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
+import { useAnchorWallet } from "@solana/wallet-adapter-react";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import { GatewayProvider } from '@civic/solana-gateway-react';
 import Countdown from "react-countdown";
-import {Snackbar, Paper, LinearProgress, Chip} from "@material-ui/core";
+import { Snackbar, Paper, LinearProgress, Chip } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
-import {toDate, AlertState, getAtaForMint} from './utils';
-import {MintButton} from './MintButton';
+import { toDate, AlertState, getAtaForMint } from './utils';
+import { MintButton } from './MintButton';
 import {
     CandyMachine,
     awaitTransactionSignatureConfirmation,
@@ -331,7 +331,7 @@ const Home = (props: HomeProps) => {
                 setPriceLabel(splTokenName);
                 setPrice(cndy.state.price.toNumber() / divider);
                 setWhitelistPrice(cndy.state.price.toNumber() / divider);
-            }else {
+            } else {
                 setPrice(cndy.state.price.toNumber() / LAMPORTS_PER_SOL);
                 setWhitelistPrice(cndy.state.price.toNumber() / LAMPORTS_PER_SOL);
             }
@@ -410,15 +410,15 @@ const Home = (props: HomeProps) => {
         })();
     };
 
-    const renderGoLiveDateCounter = ({days, hours, minutes, seconds}: any) => {
+    const renderGoLiveDateCounter = ({ days, hours, minutes, seconds }: any) => {
         return (
             <div><Card elevation={1}><h1>{days}</h1>Days</Card><Card elevation={1}><h1>{hours}</h1>
                 Hours</Card><Card elevation={1}><h1>{minutes}</h1>Mins</Card><Card elevation={1}>
-                <h1>{seconds}</h1>Secs</Card></div>
+                    <h1>{seconds}</h1>Secs</Card></div>
         );
     };
 
-    const renderEndDateCounter = ({days, hours, minutes}: any) => {
+    const renderEndDateCounter = ({ days, hours, minutes }: any) => {
         let label = "";
         if (days > 0) {
             label += days + " days "
@@ -426,7 +426,7 @@ const Home = (props: HomeProps) => {
         if (hours > 0) {
             label += hours + " hours "
         }
-        label += (minutes+1) + " minutes left to MINT."
+        label += (minutes + 1) + " minutes left to MINT."
         return (
             <div><h3>{label}</h3></div>
         );
@@ -456,7 +456,7 @@ const Home = (props: HomeProps) => {
         confetti({
             particleCount: 400,
             spread: 70,
-            origin: {y: 0.6},
+            origin: { y: 0.6 },
         });
     }
 
@@ -469,7 +469,7 @@ const Home = (props: HomeProps) => {
                     await mintOneToken(candyMachine, wallet.publicKey, mint)
                 )[0];
 
-                let status: any = {err: true};
+                let status: any = { err: true };
                 if (mintTxId) {
                     status = await awaitTransactionSignatureConfirmation(
                         mintTxId,
@@ -550,68 +550,68 @@ const Home = (props: HomeProps) => {
             <MainContainer>
                 <WalletContainer>
                     <Logo><a href="http://localhost:3000/" target="_blank" rel="noopener noreferrer"><img alt=""
-                                                                                                          src="logo.png"/></a></Logo>
-                    <Menu>
+                        src="logo.png" /></a></Logo>
+                    {/* <Menu>
                         <li><a href="http://localhost:3000/" target="_blank" rel="noopener noreferrer">Menu 1</a>
                         </li>
                         <li><a href="http://localhost:3000/" target="_blank"
-                               rel="noopener noreferrer">Menu 2</a></li>
+                            rel="noopener noreferrer">Menu 2</a></li>
                         <li><a href="http://localhost:3000/" target="_blank"
-                               rel="noopener noreferrer">Menu 3</a></li>
-                    </Menu>
+                            rel="noopener noreferrer">Menu 3</a></li>
+                    </Menu> */}
                     <Wallet>
                         {wallet ?
-                            <WalletAmount>{(balance || 0).toLocaleString()} SOL<ConnectButton/></WalletAmount> :
+                            <WalletAmount>{(balance || 0).toLocaleString()} SOL<ConnectButton /></WalletAmount> :
                             <ConnectButton>Connect Wallet</ConnectButton>}
                     </Wallet>
                 </WalletContainer>
                 <ShimmerTitle>MINT IS LIVE !</ShimmerTitle>
-                <br/>
+                <br />
                 <MintContainer>
                     <DesContainer>
                         <NFT elevation={3}>
                             <h2>My NFT</h2>
-                            <br/>
+                            <br />
                             <div><Price
-                                label={isActive && whitelistEnabled && (whitelistTokenBalance > 0) ? (whitelistPrice + " " + priceLabel) : (price + " " + priceLabel)}/><Image
-                                src="cool-cats.gif"
-                                alt="NFT To Mint"/></div>
-                            <br/>
+                                label={isActive && whitelistEnabled && (whitelistTokenBalance > 0) ? (whitelistPrice + " " + priceLabel) : (price + " " + priceLabel)} /><Image
+                                    src="detonators.gif"
+                                    alt="NFT To Mint" /></div>
+                            <br />
                             {wallet && isActive && whitelistEnabled && (whitelistTokenBalance > 0) && isBurnToken &&
-                              <h3>You own {whitelistTokenBalance} WL mint {whitelistTokenBalance > 1 ? "tokens" : "token" }.</h3>}
+                                <h3>You own {whitelistTokenBalance} WL mint {whitelistTokenBalance > 1 ? "tokens" : "token"}.</h3>}
                             {wallet && isActive && whitelistEnabled && (whitelistTokenBalance > 0) && !isBurnToken &&
-                              <h3>You are whitelisted and allowed to mint.</h3>}
+                                <h3>You are whitelisted and allowed to mint.</h3>}
 
                             {wallet && isActive && endDate && Date.now() < endDate.getTime() &&
-                              <Countdown
-                                date={toDate(candyMachine?.state?.endSettings?.number)}
-                                onMount={({completed}) => completed && setIsEnded(true)}
-                                onComplete={() => {
-                                    setIsEnded(true);
-                                }}
-                                renderer={renderEndDateCounter}
-                              />}
+                                <Countdown
+                                    date={toDate(candyMachine?.state?.endSettings?.number)}
+                                    onMount={({ completed }) => completed && setIsEnded(true)}
+                                    onComplete={() => {
+                                        setIsEnded(true);
+                                    }}
+                                    renderer={renderEndDateCounter}
+                                />}
                             {wallet && isActive &&
-                              <h3>TOTAL MINTED : {itemsRedeemed} / {itemsAvailable}</h3>}
+                                <h3>TOTAL MINTED : {itemsRedeemed} / {itemsAvailable}</h3>}
                             {wallet && isActive && <BorderLinearProgress variant="determinate"
-                                                                         value={100 - (itemsRemaining * 100 / itemsAvailable)}/>}
-                            <br/>
+                                value={100 - (itemsRemaining * 100 / itemsAvailable)} />}
+                            <br />
                             <MintButtonContainer>
                                 {!isActive && !isEnded && candyMachine?.state.goLiveDate && (!isWLOnly || whitelistTokenBalance > 0) ? (
                                     <Countdown
                                         date={toDate(candyMachine?.state.goLiveDate)}
-                                        onMount={({completed}) => completed && setIsActive(!isEnded)}
+                                        onMount={({ completed }) => completed && setIsActive(!isEnded)}
                                         onComplete={() => {
                                             setIsActive(!isEnded);
                                         }}
                                         renderer={renderGoLiveDateCounter}
                                     />) : (
                                     !wallet ? (
-                                            <ConnectButton>Connect Wallet</ConnectButton>
-                                        ) : (!isWLOnly || whitelistTokenBalance > 0) ?
+                                        <ConnectButton>Connect Wallet</ConnectButton>
+                                    ) : (!isWLOnly || whitelistTokenBalance > 0) ?
                                         candyMachine?.state.gatekeeper &&
-                                        wallet.publicKey &&
-                                        wallet.signTransaction ? (
+                                            wallet.publicKey &&
+                                            wallet.signTransaction ? (
                                             <GatewayProvider
                                                 wallet={{
                                                     publicKey:
@@ -627,7 +627,7 @@ const Home = (props: HomeProps) => {
                                                 } // This is the ignite (captcha) network
                                                 /// Don't need this for mainnet
                                                 clusterUrl={rpcUrl}
-                                                options={{autoShowModal: false}}
+                                                options={{ autoShowModal: false }}
                                             >
                                                 <MintButton
                                                     candyMachine={candyMachine}
@@ -649,24 +649,20 @@ const Home = (props: HomeProps) => {
                                             />
                                         ) :
                                         <h1>Mint is private.</h1>
-                                        )}
+                                )}
                             </MintButtonContainer>
-                            <br/>
+                            <br />
                             {wallet && isActive && solanaExplorerLink &&
-                              <SolExplorerLink href={solanaExplorerLink} target="_blank">View on Solscan</SolExplorerLink>}
+                                <SolExplorerLink href={solanaExplorerLink} target="_blank">View on Solscan</SolExplorerLink>}
                         </NFT>
                     </DesContainer>
                     <DesContainer>
                         <Des elevation={2}>
-                            <LogoAligner><img src="logo.png" alt=""></img><GoldTitle>TITLE 1</GoldTitle></LogoAligner>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt.</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt.</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt.</p>
+                            <LogoAligner><img src="logo.png" alt=""></img><GoldTitle>Digital Detonators</GoldTitle></LogoAligner>
+                            <p>Digital-Detonators is 100 hand-drawn NFTs with insane utility. Acting as a genesis collection holders will receive free mints for all future drops and royalties with the release of GEN 2</p>
+                            <p>Holder exclusive merchandise giveaways. Don’t miss out!</p>
                         </Des>
-                        <Des elevation={2}>
+                        {/* <Des elevation={2}>
                             <LogoAligner><img src="logo.png" alt=""></img><GoldTitle>TITLE 2</GoldTitle></LogoAligner>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                                 incididunt.</p>
@@ -683,17 +679,17 @@ const Home = (props: HomeProps) => {
                                 incididunt.</p>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                                 incididunt.</p>
-                        </Des>
+                        </Des> */}
                     </DesContainer>
                 </MintContainer>
             </MainContainer>
             <Snackbar
                 open={alertState.open}
                 autoHideDuration={6000}
-                onClose={() => setAlertState({...alertState, open: false})}
+                onClose={() => setAlertState({ ...alertState, open: false })}
             >
                 <Alert
-                    onClose={() => setAlertState({...alertState, open: false})}
+                    onClose={() => setAlertState({ ...alertState, open: false })}
                     severity={alertState.severity}
                 >
                     {alertState.message}
